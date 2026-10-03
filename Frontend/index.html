@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IoT Intrusion Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Is this IoT traffic an attack?</h1>
+      <p>Describe one network flow, or start from an example, and the model tells you whether it is normal or which attack it looks like.</p>
+    </div>
+    <div class="api">
+      <span id="dot" class="dot"></span>
+      <input id="apiUrl" value="http://127.0.0.1:8000" aria-label="Backend address">
+      <button id="ping" class="ghost">Check connection</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Start from an example</h2>
+      <div id="presets" class="presets"></div>
+      <p class="msg">Examples fill the form below. You can change any value afterwards.</p>
+    </section>
+
+    <section class="card">
+      <h2>Traffic details</h2>
+      <div class="form">
+        <fieldset>
+          <legend>Protocol</legend>
+          <label>Transport protocol
+            <select id="protocol">
+              <option value="TCP">TCP</option><option value="UDP">UDP</option>
+              <option value="ICMP">ICMP</option><option value="Other">Other (GRE)</option>
+            </select>
+          </label>
+          <label>Application protocol
+            <select id="app">
+              <option value="None">None</option><option value="HTTP">HTTP</option>
+              <option value="HTTPS">HTTPS</option><option value="DNS">DNS</option>
+            </select>
+          </label>
+        </fieldset>
+        <fieldset id="g-conn"><legend>Connection</legend></fieldset>
+        <fieldset id="g-traffic"><legend>Packets</legend></fieldset>
+        <fieldset id="g-counts"><legend>TCP flag counts</legend></fieldset>
+        <fieldset>
+          <legend>TCP flags set</legend>
+          <div id="flags" class="flags"></div>
+        </fieldset>
+      </div>
+
+      <details>
+        <summary>Advanced values (examples set these for you)</summary>
+        <div id="g-adv" class="form adv"></div>
+      </details>
+
+      <button id="run">Check this traffic</button>
+      <p id="msg" class="msg" role="status"></p>
+    </section>
+
+    <section id="results" class="results hidden">
+      <div id="verdict" class="verdict"></div>
+      <div class="card">
+        <h2>How sure is the model?</h2>
+        <div id="bars"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>AI-based network intrusion detection for IoT devices. XGBoost model trained on CICIoT2023, served with FastAPI.</footer>
+  <script src="script.js"></script>
+</body>
+</html>
